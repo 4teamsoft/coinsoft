@@ -1,0 +1,273 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema CoinSoft
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema CoinSoft
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `CoinSoft` DEFAULT CHARACTER SET utf8 ;
+USE `CoinSoft` ;
+
+-- -----------------------------------------------------
+-- Table `CoinSoft`.`customers`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `CoinSoft`.`customers` (
+  `idcostumer` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `last_name` VARCHAR(45) NOT NULL,
+  `age` INT UNSIGNED NOT NULL,
+  `idmanager` VARCHAR(45) NOT NULL,
+  `status` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idcostumer`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `CoinSoft`.`loans`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `CoinSoft`.`loans` (
+  `idloan` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `code_loan` VARCHAR(45) NOT NULL,
+  `date_start` DATE NOT NULL,
+  `amount` INT(30) NOT NULL,
+  `number_quota` INT UNSIGNED NOT NULL,
+  `day` INT NOT NULL,
+  `type` VARCHAR(45) NOT NULL,
+  `status` VARCHAR(45) NOT NULL,
+  `customers_idcostumer` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`idloan`),
+  INDEX `fk_loans_customers_idx` (`customers_idcostumer` ASC),
+  CONSTRAINT `fk_loans_customers`
+    FOREIGN KEY (`customers_idcostumer`)
+    REFERENCES `CoinSoft`.`customers` (`idcostumer`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `CoinSoft`.`admin`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `CoinSoft`.`admin` (
+  `idadministrator` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `dni` INT(18) NOT NULL,
+  `password` VARCHAR(150) NOT NULL,
+  `name` VARCHAR(150) NOT NULL,
+  `last_name` VARCHAR(150) NOT NULL,
+  `mail` VARCHAR(150) NOT NULL,
+  `status` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idadministrator`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `CoinSoft`.`manager`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `CoinSoft`.`manager` (
+  `iduser` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `dni` INT(50) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `last_name` VARCHAR(45) NOT NULL,
+  `mail` VARCHAR(45) NULL,
+  `status` VARCHAR(45) NOT NULL,
+  `admin_idadministrator` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`iduser`),
+  INDEX `fk_manager_admin1_idx` (`admin_idadministrator` ASC),
+  CONSTRAINT `fk_manager_admin1`
+    FOREIGN KEY (`admin_idadministrator`)
+    REFERENCES `CoinSoft`.`admin` (`idadministrator`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `CoinSoft`.`phones`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `CoinSoft`.`phones` (
+  `idphones` INT UNSIGNED NOT NULL,
+  `number` INT(9) UNSIGNED NOT NULL,
+  `operator` VARCHAR(45) NOT NULL,
+  `status` VARCHAR(45) NOT NULL,
+  `customers_idcostumer` INT UNSIGNED NOT NULL,
+  `user_iduser` INT UNSIGNED NOT NULL,
+  `admin_idadministrator` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`idphones`),
+  INDEX `fk_phones_customers1_idx` (`customers_idcostumer` ASC),
+  INDEX `fk_phones_user1_idx` (`user_iduser` ASC),
+  INDEX `fk_phones_admin1_idx` (`admin_idadministrator` ASC),
+  CONSTRAINT `fk_phones_customers1`
+    FOREIGN KEY (`customers_idcostumer`)
+    REFERENCES `CoinSoft`.`customers` (`idcostumer`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_phones_user1`
+    FOREIGN KEY (`user_iduser`)
+    REFERENCES `CoinSoft`.`manager` (`iduser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_phones_admin1`
+    FOREIGN KEY (`admin_idadministrator`)
+    REFERENCES `CoinSoft`.`admin` (`idadministrator`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `CoinSoft`.`cellphones`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `CoinSoft`.`cellphones` (
+  `idcellphones` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `number` INT(18) NOT NULL,
+  `operator` VARCHAR(150) NOT NULL,
+  `status` VARCHAR(45) NOT NULL,
+  `customers_idcostumer` INT UNSIGNED NOT NULL,
+  `manager_iduser` INT UNSIGNED NOT NULL,
+  `admin_idadministrator` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`idcellphones`),
+  INDEX `fk_cellphones_customers1_idx` (`customers_idcostumer` ASC),
+  INDEX `fk_cellphones_manager1_idx` (`manager_iduser` ASC),
+  INDEX `fk_cellphones_admin1_idx` (`admin_idadministrator` ASC),
+  CONSTRAINT `fk_cellphones_customers1`
+    FOREIGN KEY (`customers_idcostumer`)
+    REFERENCES `CoinSoft`.`customers` (`idcostumer`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cellphones_manager1`
+    FOREIGN KEY (`manager_iduser`)
+    REFERENCES `CoinSoft`.`manager` (`iduser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cellphones_admin1`
+    FOREIGN KEY (`admin_idadministrator`)
+    REFERENCES `CoinSoft`.`admin` (`idadministrator`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `CoinSoft`.`address`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `CoinSoft`.`address` (
+  `idaddress` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `department` VARCHAR(150) NOT NULL,
+  `province` VARCHAR(150) NOT NULL,
+  `district` VARCHAR(150) NOT NULL,
+  `via` VARCHAR(150) NOT NULL,
+  `name_via` VARCHAR(150) NOT NULL,
+  `number_door` VARCHAR(150) NOT NULL,
+  `number_department` VARCHAR(150) NOT NULL,
+  `block` VARCHAR(150) NULL,
+  `allotment` VARCHAR(150) NULL,
+  `type` VARCHAR(150) NOT NULL,
+  `detail_type` VARCHAR(150) NULL,
+  `reference` VARCHAR(150) NULL,
+  `status` VARCHAR(150) NULL,
+  `customers_idcostumer` INT UNSIGNED NOT NULL,
+  `user_iduser` INT UNSIGNED NOT NULL,
+  `admin_idadministrator` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`idaddress`),
+  INDEX `fk_address_customers1_idx` (`customers_idcostumer` ASC),
+  INDEX `fk_address_user1_idx` (`user_iduser` ASC),
+  INDEX `fk_address_admin1_idx` (`admin_idadministrator` ASC),
+  CONSTRAINT `fk_address_customers1`
+    FOREIGN KEY (`customers_idcostumer`)
+    REFERENCES `CoinSoft`.`customers` (`idcostumer`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_address_user1`
+    FOREIGN KEY (`user_iduser`)
+    REFERENCES `CoinSoft`.`manager` (`iduser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_address_admin1`
+    FOREIGN KEY (`admin_idadministrator`)
+    REFERENCES `CoinSoft`.`admin` (`idadministrator`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `CoinSoft`.`manager_has_customers`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `CoinSoft`.`manager_has_customers` (
+  `manager_iduser` INT UNSIGNED NOT NULL,
+  `customers_idcostumer` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`manager_iduser`, `customers_idcostumer`),
+  INDEX `fk_manager_has_customers_customers1_idx` (`customers_idcostumer` ASC),
+  INDEX `fk_manager_has_customers_manager1_idx` (`manager_iduser` ASC),
+  CONSTRAINT `fk_manager_has_customers_manager1`
+    FOREIGN KEY (`manager_iduser`)
+    REFERENCES `CoinSoft`.`manager` (`iduser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_manager_has_customers_customers1`
+    FOREIGN KEY (`customers_idcostumer`)
+    REFERENCES `CoinSoft`.`customers` (`idcostumer`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `CoinSoft`.`management`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `CoinSoft`.`management` (
+  `idmanagement` INT UNSIGNED NOT NULL,
+  `type` VARCHAR(45) NOT NULL,
+  `date` DATE NOT NULL,
+  `result` VARCHAR(150) NOT NULL,
+  `action_cod` VARCHAR(30) NOT NULL,
+  `customer_type` VARCHAR(60) NOT NULL,
+  `collection_stage` VARCHAR(100) NOT NULL,
+  `manager_iduser` INT UNSIGNED NOT NULL,
+  `customers_idcostumer` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`idmanagement`),
+  INDEX `fk_management_manager1_idx` (`manager_iduser` ASC),
+  INDEX `fk_management_customers1_idx` (`customers_idcostumer` ASC),
+  CONSTRAINT `fk_management_manager1`
+    FOREIGN KEY (`manager_iduser`)
+    REFERENCES `CoinSoft`.`manager` (`iduser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_management_customers1`
+    FOREIGN KEY (`customers_idcostumer`)
+    REFERENCES `CoinSoft`.`customers` (`idcostumer`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `CoinSoft`.`payment`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `CoinSoft`.`payment` (
+  `idpayment` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `nro_quota` INT NOT NULL,
+  `date_payment` DATE NOT NULL,
+  `amount` INT(50) NOT NULL,
+  `status` VARCHAR(45) NOT NULL,
+  `loans_idloan` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`idpayment`),
+  INDEX `fk_payment_loans1_idx` (`loans_idloan` ASC),
+  CONSTRAINT `fk_payment_loans1`
+    FOREIGN KEY (`loans_idloan`)
+    REFERENCES `CoinSoft`.`loans` (`idloan`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
