@@ -1,4 +1,15 @@
 package pe.edu.utp.coinsoftwebprofile.models;
 
-public class CustomersEntity {
+import java.sql.Connection;
+
+public class CustomersEntity extends BaseEntity {
+
+    public CustomersEntity() {
+        super();
+        setTableName("customers");
+    }
+
+    public CustomersEntity(Connection connection, String tableName) {
+        super(connection, tableName);
+    }
 }
