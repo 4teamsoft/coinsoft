@@ -2,8 +2,19 @@ package pe.edu.utp.coinsoftwebprofile.models;
 
 public class Managers_customers {
 
+
     private int idmanager;
     private int idcustomer;
+
+
+    public Managers_customers(int idmanager, int idcustomer) {
+        this.idmanager = idmanager;
+        this.idcustomer = idcustomer;
+    }
+
+    public Managers_customers() {
+
+    }
 
 
     public int getIdmanager() {
