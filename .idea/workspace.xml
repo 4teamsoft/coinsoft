@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="380f62bc-7bb0-40a1-bce4-922a34a224f3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pe/edu/utp/coinsoftwebprofile/models/Managers_customers.java" afterPath="$PROJECT_DIR$/src/pe/edu/utp/coinsoftwebprofile/models/Managers_customers.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -378,7 +377,7 @@
       <workItem from="1508398245631" duration="4700000" />
       <workItem from="1508429763030" duration="362000" />
       <workItem from="1508465337627" duration="616000" />
-      <workItem from="1508612810891" duration="2340000" />
+      <workItem from="1508612810891" duration="2353000" />
     </task>
     <task id="LOCAL-00001" summary="Class Entity">
       <created>1508398793009</created>
@@ -415,11 +414,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508614957100</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Class Entity update 4">
+      <created>1508615196641</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1508615196641</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8152000" />
+    <option name="totallyTimeSpent" value="8165000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
