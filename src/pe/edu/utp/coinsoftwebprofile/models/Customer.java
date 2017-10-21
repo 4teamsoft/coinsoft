@@ -15,6 +15,7 @@ public class Customer {
         this.last_name = last_name;
         this.age = age;
         this.status = status;
+
     }
 
     public Customer() {
