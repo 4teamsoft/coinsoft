@@ -17,11 +17,12 @@ public class LoansEntity extends BaseEntity {
         super(connection, tableName);
     }
 
-    //  public Loans  ConsultarPago(int idloan, int idCostumers) {
 
-    // return findByCriteria(String.format("WHERE idloan= %p OR idCostumers=%p"),idloan,idCostumers).get(0);
+    public Loan RegisterPayment(int idloan, int	code_loan, String date_start,double	amount,int number_quota,int	day,String type,int	idCostumers,String	status)
+    {
+        return findByCriteria(String.format("INSERT INTO Loans('idloan','code_loan','date_start','amount','number_quota','day','type','idCostumers','status') VALUES (%d,%d,%s,%d,%d,%d,%s,%d,%s)",idloan,code_loan,date_start,amount,number_quota,day,type,idCostumers,status)).get(0);
 
-    // }
+    }
 
     public List<Loan> findByCriteria(String criteria) {
         try {
