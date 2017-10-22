@@ -15,15 +15,16 @@ public class CustomersEntity extends BaseEntity {
 
     public CustomersEntity(Connection connection, String tableName) {
         super(connection, tableName);
-
     }
 
-    public Customer findById(String id, CustomersEntity customersEntity) {
+    public Customer findById(int id) {
         return findByCriteria(
-                String.format("WHERE idcustomer = '%d'", id), customersEntity).get(0);
+                String.format("WHERE idcustomer = '%d'", id)).get(0);
     }
 
-    public List<Customer> findByCriteria(String criteria, CustomersEntity customersEntity) {
+
+
+    public List<Customer> findByCriteria(String criteria) {
         try {
             ResultSet rs = getConnection()
                     .createStatement()
@@ -42,19 +43,18 @@ public class CustomersEntity extends BaseEntity {
 
     }
 
-
-    public Customer findByName(String name, CustomersEntity customersEntity) {
+    public Customer findByName(String name) {
         return findByCriteria(
-                String.format("WHERE name = '%s'", name), customersEntity).get(0);
+                String.format("WHERE name = '%s'", name)).get(0);
     }
 
-    public Customer findByLastName(String last_name, CustomersEntity customersEntity) {
+    public Customer findByLastName(String last_name) {
         return findByCriteria(
-                String.format("WHERE last_name = '%s'", last_name), customersEntity).get(0);
+                String.format("WHERE last_name = '%s'", last_name)).get(0);
     }
 
     public List<Customer> findAll(CustomersEntity customersEntity) {
-        return findByCriteria("", customersEntity);
+        return findByCriteria("");
     }
 
 
@@ -64,15 +64,32 @@ public class CustomersEntity extends BaseEntity {
         return executeUpdate(String.format(
                 "INSERT INTO %s(idcustomer, name, last_name, age , status ) VALUES(%d, '%s', '%s',%d,'%s')",
                 getTableName(), customer.getIdcustomer(), customer.getName(), customer.getLast_name(),
-                customer.getAge(),customer.getStatus() ));
+                customer.getAge(),customer.getStatus()));
     }
 
     public boolean create(int id, String name, String last_name,int age, String status) {
         return create(new Customer(id, name,last_name,age,status));
     }
 
+    public boolean update(int id, String name, String last_name,int age, String status) {
+        return executeUpdate(String.format(
+                "UPDATE %s SET name = '%s', last_name='%s',  WHERE idcustomer = %d", getTableName(), name, id));
+    }
+
+    public boolean update(Customer customer) {
+        return update(customer.getIdcustomer(), customer.getName(), customer.getLast_name(),
+                customer.getAge(), customer.getStatus() );}
 
 
+    public boolean erase(int id) {
+        return executeUpdate(String.format("DELETE FROM %s WHERE idcustomer = %d",
+                getTableName(), id));
+    }
+
+    public boolean erase(Customer customer) {
+        return executeUpdate(String.format("DELETE FROM %s WHERE region_id = %d",
+                getTableName(), customer.getIdcustomer()));
+    }
 
 
 

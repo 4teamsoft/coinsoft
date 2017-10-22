@@ -17,11 +17,9 @@ public class Customer {
         this.status = status;
 
     }
-
     public Customer() {
 
     }
-
 
     public int getIdcustomer() {
         return idcustomer;
@@ -86,8 +84,7 @@ public class Customer {
 
     }
 
-
-
-
-
 }
+
+
+
