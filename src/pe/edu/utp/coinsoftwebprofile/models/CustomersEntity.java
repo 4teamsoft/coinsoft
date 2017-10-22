@@ -15,9 +15,10 @@ public class CustomersEntity extends BaseEntity {
 
     public CustomersEntity(Connection connection, String tableName) {
         super(connection, tableName);
+
     }
 
-    public Customer findById(int id, CustomersEntity customersEntity) {
+    public Customer findById(String id, CustomersEntity customersEntity) {
         return findByCriteria(
                 String.format("WHERE idcustomer = '%d'", id), customersEntity).get(0);
     }
@@ -63,30 +64,21 @@ public class CustomersEntity extends BaseEntity {
         return executeUpdate(String.format(
                 "INSERT INTO %s(idcustomer, name, last_name, age , status ) VALUES(%d, '%s', '%s',%d,'%s')",
                 getTableName(), customer.getIdcustomer(), customer.getName(), customer.getLast_name(),
-                customer.getAge(),customer.getStatus()));
+                customer.getAge(),customer.getStatus() ));
     }
 
     public boolean create(int id, String name, String last_name,int age, String status) {
         return create(new Customer(id, name,last_name,age,status));
     }
 
-    public boolean update(int id, String name, String last_name,int age, String status) {
-        return executeUpdate(String.format(
-                "UPDATE %s SET name = '%s', last_name='%s',  WHERE idcustomer = %d", getTableName(), name, id));
-    }
 
-    /*public boolean update(Region region) {
-        return update(region.getId(), region.getName());
-    }
 
-    public boolean erase(int id) {
-        return executeUpdate(String.format("DELETE FROM %s WHERE region_id = %d",
-                getTableName(), id));
-    }
 
-    public boolean erase(Region region) {
-        return executeUpdate(String.format("DELETE FROM %s WHERE region_id = %d",
-                getTableName(), region.getId()));
-    }*/
+
+
+
+
+
+
 
 }

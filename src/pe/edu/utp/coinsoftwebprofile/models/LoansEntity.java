@@ -18,13 +18,16 @@ public class LoansEntity extends BaseEntity {
     }
 
 
-    public Loan RegisterPayment(int idloan, int	code_loan, String date_start,double	amount,int number_quota,int	day,String type,int	idCostumers,String	status)
-    {
-        return findByCriteria(String.format("INSERT INTO Loans('idloan','code_loan','date_start','amount','number_quota','day','type','idCostumers','status') VALUES (%d,%d,%s,%d,%d,%d,%s,%d,%s)",idloan,code_loan,date_start,amount,number_quota,day,type,idCostumers,status)).get(0);
 
+
+    public Loan findById(int id, LoansEntity loansEntity) {
+        return findByCriteria(
+                String.format("WHERE idloan = '%d'", id),loansEntity).get(0);
     }
 
-    public List<Loan> findByCriteria(String criteria) {
+
+
+    public List<Loan> findByCriteria(String criteria, LoansEntity loansEntity) {
         try {
 
             ResultSet rs = getConnection().createStatement().executeQuery(getBaseStatement().concat(criteria));
