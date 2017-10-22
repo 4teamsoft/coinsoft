@@ -1,114 +1,58 @@
-package pe.edu.utp.coinsoftwebprofile.models;
+package pe.coinsoft.CsWebProfile.models;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Manager {
-    private int iduser;
-    private int dni;
-    private String password;
-    private String name;
-    private String last_name;
-    private String mail;
-    private String status;
+public class Manager extends pe.coinsoft.CsWebProfile.models.User {
 
+    private int time_work;
+    private int idadmin;
 
-    public Manager(int iduser, int dni, String password, String name, String last_name, String mail, String status) {
-        this.iduser = iduser;
-        this.dni = dni;
-        this.password = password;
-        this.name = name;
-        this.last_name = last_name;
-        this.mail = mail;
-        this.status = status;
+    public Manager (){
+        super();
     }
 
-    public Manager() {
-
+    public Manager(String type, String dni, String password, String name, String last_name, String email, String status, int time_work, int idadmin) {
+        super(type, dni, password, name, last_name, email, status);
+        this.time_work = time_work;
+        this.idadmin = idadmin;
     }
 
-    public int getIduser() {
-        return iduser;
+    public int getTime_work() {
+        return time_work;
     }
 
-    public Manager setIduser(int iduser) {
-        this.iduser = iduser;
-        return this;
+    public void setTime_work(int time_work) {
+        this.time_work = time_work;
     }
 
-    public int getDni() {
-        return dni;
+    public int getIdadmin() {
+        return idadmin;
     }
 
-    public Manager setDni(int dni) {
-        this.dni = dni;
-        return this;
+    public void setIdadmin(int idadmin) {
+        this.idadmin = idadmin;
     }
 
-    public String getPassword() {
-        return password;
-    }
+    public static Manager from (ResultSet rs){
 
-    public Manager setPassword(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Manager setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public Manager setLast_name(String last_name) {
-        this.last_name = last_name;
-        return this;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public Manager setMail(String mail) {
-        this.mail = mail;
-        return this;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public Manager setStatus(String status) {
-        this.status = status;
-        return this;
-    }
-
-
-    public static Manager from(ResultSet rs) {
-        try {
+        try{
             return new Manager(
-                    rs.getInt("iduser"),
-                    rs.getInt("dni"),
+                    rs.getString("type"),
+                    rs.getString("dni"),
                     rs.getString("password"),
                     rs.getString("name"),
                     rs.getString("last_name"),
-                    rs.getString("mail"),
-                    rs.getString("status")
-            );
-        } catch (SQLException e) {
+                    rs.getString("email"),
+                    rs.getString("status"),
+                    rs.getInt("time_work"),
+                    rs.getInt("idadmin"));
+
+        } catch (SQLException e){
             e.printStackTrace();
         }
         return null;
-
     }
-
-
 
 
 }

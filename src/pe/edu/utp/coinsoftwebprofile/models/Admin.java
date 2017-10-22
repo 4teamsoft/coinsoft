@@ -1,111 +1,57 @@
-package pe.edu.utp.coinsoftwebprofile.models;
+package pe.coinsoft.CsWebProfile.models;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Admin {
-    private int idadministrator;
-    private int dni;
-    private String password;
-    private String name;
-    private String last_name;
-    private String mail;
-    private String status;
+public class Admin extends User{
 
+    private int idadmin;
+    private int idarea;
 
-    public Admin(int idadministrator, int dni, String password, String name, String last_name, String mail, String status) {
-        this.idadministrator = idadministrator;
-        this.dni = dni;
-        this.password = password;
-        this.name = name;
-        this.last_name = last_name;
-        this.mail = mail;
-        this.status = status;
+    public int getIdarea() {
+        return idarea;
+    }
+
+    public void setIdarea(int idarea) {
+        this.idarea = idarea;
     }
 
     public Admin(){
-
+        super();
     }
 
-    public int getIdadministrator() {
-        return idadministrator;
-    }
-
-    public Admin setIdadministrator(int idadministrator) {
-        this.idadministrator = idadministrator;
-        return this;
-    }
-
-    public int getDni() {
-        return dni;
-    }
-
-    public Admin setDni(int dni) {
-        this.dni = dni;
-        return this;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public Admin setPassword(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Admin setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public Admin setLast_name(String last_name) {
-        this.last_name = last_name;
-        return this;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public Admin setMail(String mail) {
-        this.mail = mail;
-        return this;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public Admin setStatus(String status) {
-        this.status = status;
-        return this;
+    public Admin(int idadmin,String type, String dni, String password, String name, String last_name, String email, String status, int idarea) {
+        super(type, dni, password, name, last_name, email, status);
+        this.idarea = idarea;
+        this.idadmin = idadmin;
     }
 
 
-    public static Admin from(ResultSet rs) {
-        try {
+    public static Admin from(ResultSet rs){
+
+        try{
             return new Admin(
-                    rs.getInt("idadministrator"),
-                    rs.getInt("dni"),
+                    rs.getInt("idamin"),
+                    rs.getString("type"),
+                    rs.getString("dni"),
                     rs.getString("password"),
                     rs.getString("name"),
                     rs.getString("last_name"),
-                    rs.getString("mail"),
-                    rs.getString("status")
-            );
-        } catch (SQLException e) {
+                    rs.getString("email"),
+                    rs.getString("status"),
+                    rs.getInt("idarea"));
+
+        } catch (SQLException e){
             e.printStackTrace();
         }
         return null;
-
     }
 
+    public int getIdadmin() {
+        return idadmin;
+    }
+
+    public void setIdadmin(int idadmin) {
+        this.idadmin = idadmin;
+    }
 }
