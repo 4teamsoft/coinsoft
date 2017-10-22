@@ -87,7 +87,7 @@ public class CustomersEntity extends BaseEntity {
     }
 
     public boolean erase(Customer customer) {
-        return executeUpdate(String.format("DELETE FROM %s WHERE region_id = %d",
+        return executeUpdate(String.format("DELETE FROM %s WHERE idcustomer = %d",
                 getTableName(), customer.getIdcustomer()));
     }
 
