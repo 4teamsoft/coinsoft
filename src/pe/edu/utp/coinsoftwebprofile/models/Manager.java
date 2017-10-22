@@ -1,9 +1,9 @@
-package pe.coinsoft.CsWebProfile.models;
+package pe.edu.utp.coinsoftwebprofile.models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Manager extends pe.coinsoft.CsWebProfile.models.User {
+public class Manager extends User {
 
     private int time_work;
     private int idadmin;

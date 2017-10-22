@@ -1,4 +1,4 @@
-package pe.coinsoft.CsWebProfile.models;
+package pe.edu.utp.coinsoftwebprofile.models;
 
 public class User {
 

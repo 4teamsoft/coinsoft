@@ -1,4 +1,4 @@
-package pe.coinsoft.CsWebProfile.models;
+package pe.edu.utp.coinsoftwebprofile.models;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -6,31 +6,31 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminEntity extends BaseEntity{
+public class AdminsEntity extends BaseEntity{
 
-    public AdminEntity(){
+    public AdminsEntity(){
         super();
         setTableName("Admin");
     }
 
-    public AdminEntity(Connection connection, String tableName){
+    public AdminsEntity(Connection connection, String tableName){
         super(connection,tableName);
     }
 
-    public pe.coinsoft.CsWebProfile.models.Admin login(String dni, String password){
+    public login(String dni, String password){
         return findByCriteria(String.format("WHERE dni= %s AND password= %s",dni,password)).get(0);
 
     }
 
-    public List<pe.coinsoft.CsWebProfile.models.Admin> findByCriteria(String criteria){
+    public List<Admin> findByCriteria(String criteria){
         try{
             ResultSet rs = getConnection()
                     .createStatement()
                     .executeQuery(getBaseStatement()
                             .concat(criteria));
-            List<pe.coinsoft.CsWebProfile.models.Admin> admins = new ArrayList<>();
+            List<Admin> admins = new ArrayList<>();
             while(rs.next()){
-                admins.add(pe.coinsoft.CsWebProfile.models.Admin.from(rs));
+                admins.add(Admin.from(rs));
             }
             return admins;
 

@@ -75,8 +75,8 @@ public class CustomersEntity extends BaseEntity {
                 "UPDATE %s SET name = '%s', last_name='%s',  WHERE idcustomer = %d", getTableName(), name, id));
     }
 
-   /* public boolean update(Customer customer) {
-        return update(customer.getId(), customer.getName());
+    /*public boolean update(Region region) {
+        return update(region.getId(), region.getName());
     }
 
     public boolean erase(int id) {
@@ -84,24 +84,9 @@ public class CustomersEntity extends BaseEntity {
                 getTableName(), id));
     }
 
-    public boolean erase(Customer customer) {
+    public boolean erase(Region region) {
         return executeUpdate(String.format("DELETE FROM %s WHERE region_id = %d",
-                getTableName(), customer.getId()));
-    }
-
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
+                getTableName(), region.getId()));
+    }*/
 
 }
