@@ -1,0 +1,11 @@
+Este es un repositorio antiguo,
+que por unir el codigo de programacion
+y los documentos, tuvimos que crear 
+2 repositorios adicionales, las cuales
+son las siguientes:
+
+Repositorio de codigo de Programacion:
+https://github.com/4teamsoft/CoinsoftWeb
+
+Repositorio de documentos:
+https://github.com/4teamsoft/CoinsoftDocuments
